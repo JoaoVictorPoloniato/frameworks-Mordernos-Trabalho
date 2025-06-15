@@ -1,18 +1,24 @@
 // src/app.js
-const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./docs/swagger');
-const produtoRoutes = require('./routes/produtoRoutes');
+const express = require('express')
+const cors = require('cors')                          
+const swaggerUi = require('swagger-ui-express')
+const swaggerSpec = require('./docs/swagger')
+const produtoRoutes = require('./routes/produtoRoutes')
+const authMiddleware = require('./middleware/auth')   
 
-const app = express();
+const app = express()
 
-// Middleware
-app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+}))
 
-// Swagger
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// Rotas
-app.use('/produtos', produtoRoutes);
+app.use(express.json())
 
-module.exports = app;
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
+
+app.use('/api/pocoes', authMiddleware, produtoRoutes)
+
+module.exports = app

@@ -1,47 +1,36 @@
-// src/services/productService.js
-const productModel = require('../models/productModel');
+const produtoModel = require('../models/produtoModel')
 
-const getAllProducts = () => {
-  return productModel.findAll();
-};
+const getAllProducts = async () => {
+  return await produtoModel.listar()
+}
 
-const getProductById = (id) => {
-  const product = productModel.findById(id);
-  if (!product) {
-    throw new Error('Produto não encontrado');
+const getProductById = async (id) => {
+  const todos = await produtoModel.listar()
+  const encontrado = todos.find((p) => p.id == id)
+  if (!encontrado) throw new Error('Produto não encontrado')
+  return encontrado
+}
+
+const createProduct = async (productData) => {
+  const { nome, preco, cor, frasco } = productData
+  if (!nome || !preco || !cor || !frasco) {
+    throw new Error('Nome, preço, cor e frasco são obrigatórios')
   }
-  return product;
-};
+  return await produtoModel.cadastrar(productData)
+}
 
-const createProduct = (productData) => {
-  // Validação simples
-  if (!productData.name || !productData.price) {
-    throw new Error('Nome e preço são obrigatórios');
-  }
-  return productModel.create(productData);
-};
+const updateProduct = async (id, productData) => {
+  return await produtoModel.atualizar(id, productData)
+}
 
-const updateProduct = (id, productData) => {
-  const product = productModel.update(id, productData);
-  if (!product) {
-    throw new Error('Produto não encontrado');
-  }
-  return product;
-};
-
-const deleteProduct = (id) => {
-  const product = productModel.findById(id);
-  if (!product) {
-    throw new Error('Produto não encontrado');
-  }
-  productModel.remove(id);
-  return { message: 'Produto removido com sucesso' };
-};
+const deleteProduct = async (id) => {
+  return await produtoModel.deletar(id)
+}
 
 module.exports = {
   getAllProducts,
   getProductById,
   createProduct,
   updateProduct,
-  deleteProduct
-};
+  deleteProduct,
+}

@@ -1,35 +1,33 @@
-// src/models/produtoModel.js
-const { v4: uuidv4 } = require('uuid');
-
-let produtos = [];
+const db = require('../config/database')
 
 class Produto {
-  static listar() {
-    return produtos;
+  static async listar() {
+    const [rows] = await db.query('SELECT * FROM pocoes')
+    return rows
   }
 
-  static cadastrar(dados) {
-    const novoProduto = {
-      id: uuidv4(),
-      ...dados
-    };
-    produtos.push(novoProduto);
-    return novoProduto;
+  static async cadastrar(dados) {
+    const { nome, preco, cor, frasco, descricao } = dados
+    const [result] = await db.query(
+      'INSERT INTO pocoes (nome, preco, cor, frasco, descricao) VALUES (?, ?, ?, ?, ?)',
+      [nome, preco, cor, frasco, descricao]
+    )
+    return { id: result.insertId, ...dados }
   }
 
-  static atualizar(id, dados) {
-    const index = produtos.findIndex(p => p.id === id);
-    if (index !== -1) {
-      produtos[index] = { ...produtos[index], ...dados };
-      return produtos[index];
-    }
-    return null;
+  static async atualizar(id, dados) {
+    const { nome, preco, cor, frasco, descricao } = dados
+    await db.query(
+      'UPDATE pocoes SET nome = ?, preco = ?, cor = ?, frasco = ?, descricao = ? WHERE id = ?',
+      [nome, preco, cor, frasco, descricao, id]
+    )
+    return { id, ...dados }
   }
 
-  static deletar(id) {
-    produtos = produtos.filter(p => p.id !== id);
-    return true;
+  static async deletar(id) {
+    await db.query('DELETE FROM pocoes WHERE id = ?', [id])
+    return true
   }
 }
 
-module.exports = Produto;
+module.exports = Produto

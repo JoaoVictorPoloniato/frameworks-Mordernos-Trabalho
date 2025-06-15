@@ -126,10 +126,6 @@ router.delete('/:id', ProdutoController.deletar);
  *           format: float
  *           description: Preço do produto
  *           example: 4999.99
- *         quantidade:
- *           type: integer
- *           description: Quantidade em estoque
- *           example: 10
  *         createdAt:
  *           type: string
  *           format: date-time
@@ -150,9 +146,6 @@ router.delete('/:id', ProdutoController.deletar);
  *           type: number
  *           format: float
  *           example: 4999.99
- *         quantidade:
- *           type: integer
- *           example: 10
  */
 
 module.exports = router;

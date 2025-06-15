@@ -1,28 +1,41 @@
-// src/controllers/produtoController.js
-const Produto = require('../models/produtoModel');
+const productService = require('../services/productService')
 
 class ProdutoController {
-  static listar(req, res) {
-    res.json(Produto.listar());
-  }
-
-  static cadastrar(req, res) {
-    const { nome, preco, quantidade } = req.body;
-    if (!nome || !preco || !quantidade) {
-      return res.status(400).json({ erro: "Dados incompletos!" });
+  static async listar(req, res) {
+    try {
+      const produtos = await productService.getAllProducts()
+      res.json(produtos)
+    } catch (error) {
+      res.status(500).json({ erro: 'Erro ao listar produtos' })
     }
-    res.status(201).json(Produto.cadastrar(req.body));
   }
 
-  static atualizar(req, res) {
-    const produto = Produto.atualizar(req.params.id, req.body);
-    produto ? res.json(produto) : res.status(404).json({ erro: "Produto não encontrado!" });
+  static async cadastrar(req, res) {
+    try {
+      const novoProduto = await productService.createProduct(req.body)
+      res.status(201).json(novoProduto)
+    } catch (error) {
+      res.status(400).json({ erro: error.message })
+    }
   }
 
-  static deletar(req, res) {
-    Produto.deletar(req.params.id);
-    res.status(204).send();
+  static async atualizar(req, res) {
+    try {
+      const produtoAtualizado = await productService.updateProduct(req.params.id, req.body)
+      res.json(produtoAtualizado)
+    } catch (error) {
+      res.status(404).json({ erro: 'Produto não encontrado' })
+    }
+  }
+
+  static async deletar(req, res) {
+    try {
+      await productService.deleteProduct(req.params.id)
+      res.status(204).send()
+    } catch (error) {
+      res.status(404).json({ erro: 'Produto não encontrado' })
+    }
   }
 }
 
-module.exports = ProdutoController;
+module.exports = ProdutoController
