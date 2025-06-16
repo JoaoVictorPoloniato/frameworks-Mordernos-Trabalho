@@ -3,11 +3,16 @@
     <v-container fluid class="py-12">
       <!-- cabeçalho -->
       <div class="dashboard-header text-center mb-8">
-        <h1>🧙‍♂️ Loja Mágica de Poções</h1>
+        <h1>🧙‍♂️ Magic Potion Store</h1>
         <p>"Onde cada gota é uma gota de magia"</p>
         <v-btn class="create-btn" @click="openForm()">
           <v-icon left>mdi-plus</v-icon>
           ✨ Criar Nova Poção
+        </v-btn>
+        
+        <v-btn class="exit-btn" @click="logout">
+          <v-icon left>mdi-exit-run</v-icon>
+            Sair
         </v-btn>
       </div>
 
@@ -55,10 +60,14 @@
 import { ref, onMounted } from 'vue'
 import api from '@/services/api.js'
 import FormsPocoes from '@/components/FormsPocoes.vue' // ← import do componente
+import { getAuth, signOut } from "firebase/auth"
+import { useRouter } from 'vue-router'
 
 const pocoes   = ref([])
 const showForm = ref(false)
 const current  = ref(null)
+const auth = getAuth()
+const router = useRouter()
 
 async function fetchPocoes() {
   try {
@@ -66,6 +75,14 @@ async function fetchPocoes() {
     pocoes.value = data
   } catch (err) {
     console.error('Erro ao carregar poções:', err)
+  }
+}
+async function logout() {
+  try {
+    await signOut(auth)
+    router.push('/')
+  } catch (error) {
+    console.error("Erro ao sair:", error)
   }
 }
 
@@ -88,24 +105,32 @@ onMounted(fetchPocoes)
 </script>
 
 <style scoped>
+
 .dashboard {
-  background: linear-gradient(180deg, #4b2c12 0%, #1e1e1e 100%);
+  background: linear-gradient(180deg, #06294b 0%, #000000 100%);
   min-height: 100vh;
 }
 
 .dashboard-header h1 {
-  color: #f7ddb0;
+  color: #ffffff;
   font-size: 3rem;
   margin-bottom: 0.5rem;
 }
 .dashboard-header p {
-  color: #f8d77e;
+  color: #e9c76a;
   font-style: italic;
   margin-bottom: 1rem;
 }
+.exit-btn{
+  background: linear-gradient(90deg, #bb2e2e, #d11414);
+  color: #fff !important;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  text-transform: none !important;
+}
 
 .create-btn {
-  background: linear-gradient(90deg, #832ebb, #ec008c);
+  background: linear-gradient(90deg, #832ebb, #cf0c81);
   color: #fff !important;
   border-radius: 9999px;
   padding: 0.75rem 1.5rem;

@@ -16,6 +16,12 @@ const loginWithGoogle = async () => {
 </script>
 
 <template>
+  <div>
+    <div class="login-header text-center mb-8">
+        <h1>🧙‍♂️ Magic Potion Store</h1>
+        <p>"Onde cada gota é uma gota de magia"</p>
+  </div>
+  </div>
   <div class="login-container">
     <div class="login-card">
       <h1>Bem-vindo</h1>
@@ -34,11 +40,11 @@ const loginWithGoogle = async () => {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to bottom right, #eaf1ff, #f0f4ff);
+  background: linear-gradient(180deg, #06294b 0%, #000000 100%);
 }
 
 .login-card {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   padding: 2.5rem 2rem;
   border-radius: 12px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
@@ -54,14 +60,14 @@ const loginWithGoogle = async () => {
 
 .login-card p {
   margin-bottom: 1.5rem;
-  color: #6b7280;
+  color: #2b354a;
 }
 
 .google-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #db4437;
+  background-color: #39006e;
   color: white;
   border: none;
   border-radius: 8px;
@@ -80,12 +86,29 @@ const loginWithGoogle = async () => {
 }
 
 .google-button:hover {
-  background-color: #c1351d;
+  background-color: #8d2ce2;
 }
 
 .simulated-login {
   margin-top: 1rem;
   font-size: 0.875rem;
   color: #6b7280;
+}
+
+.login{
+    background: linear-gradient(180deg, #06294b 0%, #000000 100%);
+  min-height: 100vh;
+}
+
+.login-header h1 {
+  color: #000000;
+  font-size: 3rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-header p {
+  color: #000000;
+  font-style: italic;
+  margin-bottom: 1rem;
 }
 </style>
