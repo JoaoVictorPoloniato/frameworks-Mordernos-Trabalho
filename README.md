@@ -42,7 +42,7 @@ Este é um projeto criativo feito com Vue 3 + Vite + Pinia que simula uma loja m
 ```bash
 # Clone o repositório
 git clone https://github.com/JoaoVictorPoloniato/frameworks-Mordernos-Trabalho.git
-cd loja-magica-pocoes
+cd frameworks-Mordernos-Trabalho
 
 # Instale as dependências
 npm install
