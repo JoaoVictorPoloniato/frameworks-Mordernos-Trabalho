@@ -1,0 +1,22 @@
+:root {
+  color: #ffffff;
+  background-color: #121212;
+}
+#app {
+  font-family: 'Arial', sans-serif;
+  color: var(--color);
+  text-align: center;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
