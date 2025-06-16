@@ -1,10 +1,21 @@
+## 🎓 UNEMAT - Curso de Sistemas de Informação
+Disciplina: Frameworks Modernos para Desenvolvimento de Sistemas  
+Professor: Ivan Luiz Pedroso Pires
+
+## 👨‍💻 Integrantes
+- Guilherme de Carvalho Fernandes
+- João Victor Poloniato Buss
+- Leonardo Lopes Ricci
+
+---
+
 # 🧙‍♂ Magic Potion Store
 
 > “Onde cada gota é uma gota de magia.”
 
 Este é um projeto criativo feito com Vue 3 + Vite + Pinia que simula uma loja mágica onde você pode cadastrar, visualizar e gerenciar poções encantadas com múltiplos efeitos mágicos.
 
-Discentes: Guilherme de Carvalho Fernandes, João Victor Poloniato Buss e Leonardo Lopes Ricci.
+
 ---
 
 ## ✨ Funcionalidades
