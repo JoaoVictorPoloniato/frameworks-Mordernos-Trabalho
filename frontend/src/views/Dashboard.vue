@@ -16,7 +16,6 @@
         </v-btn>
       </div>
 
-      <!-- lista de poções -->
       <v-row dense>
         <v-col
           v-for="p in pocoes"
@@ -25,7 +24,7 @@
           md="4"
         >
           <v-card class="potion-card pa-4" elevation="4">
-            <v-card-title class="d-flex align-center">
+            <v-card-title class="d-flex">
               <v-icon left>mdi-flask</v-icon>{{ p.nome }}
             </v-card-title>
             <v-chip small class="price-chip">{{ p.preco }} moedas</v-chip>
@@ -47,7 +46,6 @@
       </v-row>
     </v-container>
 
-    <!-- modal de criação/edição -->
     <FormsPocoes
       v-model="showForm"
       :initial="current"
@@ -59,7 +57,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '@/services/api.js'
-import FormsPocoes from '@/components/FormsPocoes.vue' // ← import do componente
+import FormsPocoes from '@/components/FormsPocoes.vue'
 import { getAuth, signOut } from "firebase/auth"
 import { useRouter } from 'vue-router'
 
@@ -138,9 +136,10 @@ onMounted(fetchPocoes)
 }
 
 .potion-card {
-  background: #1e1e1e !important;
+  background: linear-gradient(180deg, #4b2c12 0%, #1e1e1e 100%);
   border: 1px solid #ff9500 !important;
   border-radius: 0.5rem !important;
+  color: #f7ddb0 !important;
 }
 
 .potion-card .v-card-title {
@@ -151,5 +150,6 @@ onMounted(fetchPocoes)
 .price-chip {
   background-color: #ff9500 !important;
   color: #fff !important;
+  font-weight: bold;  
 }
 </style>
